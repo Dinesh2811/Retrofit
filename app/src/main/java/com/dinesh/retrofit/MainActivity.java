@@ -4,8 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -16,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "log_test";
 
     ApiInterface apiInterface;
+    List<ApiModelProductsId> apiModelProductsIdList = new ArrayList<>();
+    List<String> img = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,74 +26,81 @@ public class MainActivity extends AppCompatActivity {
 
         apiInterface = ApiClient.getRetrofit().create(ApiInterface.class);
 
-        getModel();
+//        getModel();
         getModelAsList();
-
-        getModelByPath();
-        getModelByPathAsList();
-
-        getModelByQuery();
-        getModelByQueryAsList();
-
+//
+//        getModelByPath();
+//        getModelByPathAsList();
+//
+//        getModelByQuery();
+//        getModelByQueryAsList();
+//
         postModel();
     }
 
     private void postModel() {
-        Model model = new Model("1", "dinesh", "dk@gmail.com", "866");
-        Call<Model> call = apiInterface.postModel(model);
-        call.enqueue(new Callback<Model>() {
+        ApiModel apiModel = new ApiModel(apiModelProductsIdList,"title","des",
+                41,5.5d,5.1d,4,
+                "jh","jm","jm",img);
+//        ApiModel apiModel = new ApiModel("1", "dinesh", "dk@gmail.com", "866");
+        Call<ApiModel> call = apiInterface.postModel(apiModel);
+        call.enqueue(new Callback<ApiModel>() {
             @Override
-            public void onResponse(Call<Model> call, Response<Model> response) {
-                Log.i(TAG, "onResponse: " + response.code());
+            public void onResponse(Call<ApiModel> call, Response<ApiModel> response) {
+                Log.e(TAG, "onResponse:post " + response.code());
+                Log.e(TAG, "onResponse:post " + response.isSuccessful());
+                Log.e(TAG, "onResponse:post " + response.toString());
+                Log.e(TAG, "onResponse:apiModelProductsIdList "+apiModelProductsIdList );
+                Log.e(TAG, "onResponse:img "+img );
             }
 
             @Override
-            public void onFailure(Call<Model> call, Throwable t) {
-                Log.i(TAG, "onFailure: " + t.getLocalizedMessage());
+            public void onFailure(Call<ApiModel> call, Throwable t) {
+                Log.e(TAG, "onFailure: " + t.getLocalizedMessage());
             }
         });
     }
 
     private void getModelByQueryAsList() {
-        Call<List<Model>> call = apiInterface.getModelByQueryAsList("dinesh", "dk@gmail.com", "866");
-        call.enqueue(new Callback<List<Model>>() {
+        Call<List<ApiModel>> call = apiInterface.getModelByQueryAsList("dinesh", "dk@gmail.com", "866");
+        call.enqueue(new Callback<List<ApiModel>>() {
             @Override
-            public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
+            public void onResponse(Call<List<ApiModel>> call, Response<List<ApiModel>> response) {
                 Log.i(TAG, "onResponse: " + response.code());
             }
 
             @Override
-            public void onFailure(Call<List<Model>> call, Throwable t) {
+            public void onFailure(Call<List<ApiModel>> call, Throwable t) {
                 Log.i(TAG, "onFailure: " + t.getLocalizedMessage());
             }
         });
     }
 
     private void getModelByQuery() {
-        Call<Model> call = apiInterface.getModelByQuery("dinesh", "dk@email.com", "855");
-        call.enqueue(new Callback<Model>() {
+        Call<ApiModel> call = apiInterface.getModelByQuery("dinesh", "dk@email.com", "855");
+        call.enqueue(new Callback<ApiModel>() {
             @Override
-            public void onResponse(Call<Model> call, Response<Model> response) {
+            public void onResponse(Call<ApiModel> call, Response<ApiModel> response) {
                 Log.i(TAG, "onResponse: " + response.code());
             }
 
             @Override
-            public void onFailure(Call<Model> call, Throwable t) {
+            public void onFailure(Call<ApiModel> call, Throwable t) {
                 Log.i(TAG, "onFailure: " + t.getLocalizedMessage());
             }
         });
     }
 
     private void getModelByPathAsList() {
-        Call<List<Model>> call = apiInterface.getModelByPathAsList(1);
-        call.enqueue(new Callback<List<Model>>() {
+        Call<List<ApiModel>> call = apiInterface.getModelByPathAsList(1);
+        call.enqueue(new Callback<List<ApiModel>>() {
             @Override
-            public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
+            public void onResponse(Call<List<ApiModel>> call, Response<List<ApiModel>> response) {
                 Log.i(TAG, "onResponse: " + response.code());
             }
 
             @Override
-            public void onFailure(Call<List<Model>> call, Throwable t) {
+            public void onFailure(Call<List<ApiModel>> call, Throwable t) {
                 Log.i(TAG, "onFailure: " + t.getLocalizedMessage());
             }
         });
@@ -99,50 +108,50 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getModelByPath() {
-        Call<Model> call = apiInterface.getModelByPath(1);
-        call.enqueue(new Callback<Model>() {
+        Call<ApiModel> call = apiInterface.getModelByPath(1);
+        call.enqueue(new Callback<ApiModel>() {
             @Override
-            public void onResponse(Call<Model> call, Response<Model> response) {
+            public void onResponse(Call<ApiModel> call, Response<ApiModel> response) {
                 Log.i(TAG, "onResponse: " + response.code());
             }
 
             @Override
-            public void onFailure(Call<Model> call, Throwable t) {
+            public void onFailure(Call<ApiModel> call, Throwable t) {
                 Log.i(TAG, "onFailure: " + t.getLocalizedMessage());
             }
         });
     }
 
     private void getModelAsList() {
-        Call<List<Model>> call = apiInterface.getModelAsList();
-        call.enqueue(new Callback<List<Model>>() {
+        Call<List<ApiModel>> call = apiInterface.getModelAsList();
+        call.enqueue(new Callback<List<ApiModel>>() {
             @Override
-            public void onResponse(Call<List<Model>> call, Response<List<Model>> response) {
+            public void onResponse(Call<List<ApiModel>> call, Response<List<ApiModel>> response) {
                 Log.i(TAG, "onResponse: " + response.code());
                 Log.i(TAG, "onResponse: " + response.body());
-                Log.i(TAG, "onResponse: " + response.body().get(1));
-                Log.i(TAG, "onResponse: " + response.body().get(1).getName());
+                Log.i(TAG, "onResponse: " + response.body().get(1).apiModelProductsId);
+                apiModelProductsIdList = response.body().get(1).apiModelProductsId;
+                img = response.body().get(1).images;
             }
 
             @Override
-            public void onFailure(Call<List<Model>> call, Throwable t) {
+            public void onFailure(Call<List<ApiModel>> call, Throwable t) {
                 Log.i(TAG, "onFailure: " + t.getLocalizedMessage());
             }
         });
     }
 
     private void getModel() {
-        Call<Model> call = apiInterface.getModel();
-        call.enqueue(new Callback<Model>() {
+        Call<ApiModel> call = apiInterface.getModel();
+        call.enqueue(new Callback<ApiModel>() {
             @Override
-            public void onResponse(Call<Model> call, Response<Model> response) {
+            public void onResponse(Call<ApiModel> call, Response<ApiModel> response) {
                 Log.i(TAG, "onResponse: " + response.code());
                 Log.i(TAG, "onResponse: " + response.body());
-                Log.i(TAG, "onResponse: " + response.body().getName());
             }
 
             @Override
-            public void onFailure(Call<Model> call, Throwable t) {
+            public void onFailure(Call<ApiModel> call, Throwable t) {
                 Log.i(TAG, "onFailure: " + t.getLocalizedMessage());
             }
         });

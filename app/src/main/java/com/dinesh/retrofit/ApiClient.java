@@ -9,10 +9,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
-//    https://dummyjson.com/products/search?q=Laptop
-//    https://jsonplaceholder.typicode.com/
+//    http://10.0.2.2/products
 
-    private static final String BASE_URL = "https://dummyjson.com/";
+    private static final String BASE_URL = "http://10.0.2.2/";
     private static Retrofit retrofit = null;
 
     public static Retrofit getRetrofit() {

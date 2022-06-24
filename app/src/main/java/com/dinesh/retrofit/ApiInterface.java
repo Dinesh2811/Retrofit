@@ -10,42 +10,40 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiInterface {
-//    https://jsonplaceholder.typicode.com/posts/1
-
-    //    https://jsonplaceholder.typicode.com/posts
-    String url = "posts";
+//    http://10.0.2.2/products
+    String url = "products";
 
     @GET(url)
-    Call<Model> getModel();
+    Call<ApiModel> getModel();
 
-    @GET("posts")
-    Call<List<Model>> getModelAsList();
+    @GET("products")
+    Call<List<ApiModel>> getModelAsList();
 
 
     //    https://jsonplaceholder.typicode.com/posts/1
     @GET("posts/{id}")
-    Call<Model> getModelByPath(@Path("id") int id);
+    Call<ApiModel> getModelByPath(@Path("id") int id);
 
     @GET("posts/{id}")
-    Call<List<Model>> getModelByPathAsList(@Path("id") int id);
+    Call<List<ApiModel>> getModelByPathAsList(@Path("id") int id);
 
 
     //    https://jsonplaceholder.typicode.com/comments?name=dinesh&email=dk@gmail.com&mobile=866
     @GET("posts")
-    Call<Model> getModelByQuery(
+    Call<ApiModel> getModelByQuery(
             @Query("name") String name,
             @Query("email") String email,
             @Query("mobile") String mobile
     );
 
     @GET("posts")
-    Call<List<Model>> getModelByQueryAsList(
+    Call<List<ApiModel>> getModelByQueryAsList(
             @Query("name") String name,
             @Query("email") String email,
             @Query("mobile") String mobile
     );
 
 
-    @POST("posts")
-    Call<Model> postModel(@Body Model todo);
+    @POST("products")
+    Call<ApiModel> postModel(@Body ApiModel todo);
 }
