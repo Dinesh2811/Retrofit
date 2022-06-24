@@ -40,8 +40,6 @@ public class MainActivity extends AppCompatActivity {
 //
         postModel();
 
-        Intent intent = new Intent(getApplicationContext(),tst.class);
-        startActivity(intent);
     }
 
     private void postModel() {
