@@ -2,6 +2,7 @@ package com.dinesh.retrofit;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -16,8 +17,10 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "log_test";
 
     ApiInterface apiInterface;
-    List<ApiModelProductsId> apiModelProductsIdList = new ArrayList<>();
-    List<String> img = new ArrayList<>();
+
+    public static List<ApiModel> body;
+    static List<ApiModelProductsId> apiModelProductsIdList ;
+    static List<String> img ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
 //        getModelByQueryAsList();
 //
         postModel();
+
+        Intent intent = new Intent(getApplicationContext(),tst.class);
+        startActivity(intent);
     }
 
     private void postModel() {
@@ -50,8 +56,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.e(TAG, "onResponse:post " + response.code());
                 Log.e(TAG, "onResponse:post " + response.isSuccessful());
                 Log.e(TAG, "onResponse:post " + response.toString());
-                Log.e(TAG, "onResponse:apiModelProductsIdList "+apiModelProductsIdList );
-                Log.e(TAG, "onResponse:img "+img );
             }
 
             @Override
@@ -129,9 +133,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<List<ApiModel>> call, Response<List<ApiModel>> response) {
                 Log.i(TAG, "onResponse: " + response.code());
                 Log.i(TAG, "onResponse: " + response.body());
-                Log.i(TAG, "onResponse: " + response.body().get(1).apiModelProductsId);
-                apiModelProductsIdList = response.body().get(1).apiModelProductsId;
-                img = response.body().get(1).images;
+                body = response.body();
             }
 
             @Override
